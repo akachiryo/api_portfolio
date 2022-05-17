@@ -6,7 +6,7 @@ default: &default
   password:
   host: localhost
 
-development:
+productrion :
   <<: *default
   database: myapp_production
   host: db
