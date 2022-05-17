@@ -8,6 +8,13 @@ default: &default
 
 development:
   <<: *default
+  database: myapp_production
+  host: db
+  username: root
+  password: password
+
+development:
+  <<: *default
   database: myapp_development
   host: db
   username: root
