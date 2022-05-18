@@ -6,11 +6,11 @@ default: &default
   password:
   host: localhost
 
-productrion :
+production:
   <<: *default
-  database: myapp_production
-  host: db
-  username: root
+  database: heroku_d8c7cee09d8e486
+  host: us-cdbr-east-05.cleardb.net
+  username: b05cfb0c59fbca
   password: password
 
 development:
