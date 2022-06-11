@@ -1,18 +1,25 @@
 class Api::SessionsController < ApplicationController
-  def create
-    user = User.find_by(email: session_params[:email])
+  include JwtAuthenticator
 
-    if user&.authenticate(session_params[:password])
-      token = Jwt::TokenProvider.call(user_id: user.id)
-      render json: ActiveModelSerializers::SerializableResource.new(user, serializer: UserSerializer).as_json.deep_merge(user: { token: token })
+  def create
+    # ログインIDを元にユーザーを取得
+    @current_user = User.find_by(email: session_params[:email])
+    # パスワードによる認証
+    
+    if @current_user&.authenticate(session_params[:password])
+      # jwtの発行
+      jwt_token = encode(@current_user.id)
+      # レスポンスヘッダーにトークンを設定
+      response.headers['X-Authentication-Token'] = jwt_token
+      # 任意のレスポンスを返す
+      render json: @current_user.as_json.deep_merge(token: jwt_token )
     else
-      render json: { error: { messages: ['mistake email or password'] } }, status: :unauthorized
+      render json: { error: { messages: ['mistake emal or password'] } }, status: :unauthorized 
     end
   end
-
-  private
 
   def session_params
     params.require(:session).permit(:email, :password)
   end
+
 end
