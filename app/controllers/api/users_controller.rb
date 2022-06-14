@@ -11,7 +11,14 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    current_user.update(user_update_params)
+    # binding.pry
+    @user = current_user
+    if @user.update(user_update_params)
+      @user.parse_base64(params[:user][:image])
+      # render json: @book, status: :created, location: @book
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
 
   private
@@ -21,6 +28,6 @@ class Api::UsersController < ApplicationController
   end
 
   def user_update_params
-    params.require(:user).permit(:introduction, :avatar, avatar: :data)
+    params.require(:user).permit(:introduction, :image)
   end
 end
