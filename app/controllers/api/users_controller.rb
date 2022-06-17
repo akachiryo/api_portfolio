@@ -1,7 +1,8 @@
 class Api::UsersController < ApplicationController
 
   def index
-    @users = User.all
+    @user = User.find(1)
+    # render 'index', formats: json, handlers: 'jbuilder'
   end
 
   def create
@@ -11,11 +12,10 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    # binding.pry
     @user = current_user
     if @user.update(user_update_params)
       @user.parse_base64(params[:user][:image])
-      # render json: @book, status: :created, location: @book
+      render json: @user, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
