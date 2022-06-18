@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'skills/create'
+  get 'skills/destroy'
+  get 'skills/update'
   namespace :api do
     resources :users, only: %i[index create update]
     resource :session, only: %i[create destroy], format: "json"

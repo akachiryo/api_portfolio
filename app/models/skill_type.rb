@@ -1,0 +1,2 @@
+class SkillType < ApplicationRecord
+end
