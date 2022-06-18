@@ -8,11 +8,12 @@ class Api::SessionsController < ApplicationController
     
     if @current_user&.authenticate(session_params[:password])
       # jwtの発行
-      jwt_token = encode(@current_user.id)
+      @jwt_token = encode(@current_user.id)
       # レスポンスヘッダーにトークンを設定
-      response.headers['X-Authentication-Token'] = jwt_token
+      response.headers['X-Authentication-Token'] = @jwt_token
       # 任意のレスポンスを返す
-      render json: @current_user.as_json.deep_merge(token: jwt_token )
+      # render json: @current_user.as_json.deep_merge(token: jwt_token )
+      # render json: @current_user, status: :created, location: @current_user
     else
       render json: { error: { messages: ['mistake emal or password'] } }, status: :unauthorized 
     end
