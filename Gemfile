@@ -26,6 +26,7 @@ gem 'rack-cors'
 
 gem 'mysql2', '~> 0.5'
 gem 'jwt'
+gem 'active_storage_base64'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
