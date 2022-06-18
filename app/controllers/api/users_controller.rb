@@ -1,8 +1,7 @@
 class Api::UsersController < ApplicationController
 
   def index
-    @user = User.find(1)
-    # render 'index', formats: json, handlers: 'jbuilder'
+    @users = User.all
   end
 
   def create
