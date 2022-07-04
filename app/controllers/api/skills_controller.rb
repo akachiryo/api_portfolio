@@ -6,7 +6,7 @@ class Api::SkillsController < ApplicationController
   end
 
   def create
-    Skill.create!(skill_params)
+    current_user.skills.create!(skill_params)
     @skill_types = SkillType.all
   end
 
