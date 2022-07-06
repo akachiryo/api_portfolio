@@ -14,7 +14,6 @@ class Api::UsersController < ApplicationController
     @user = current_user
     if @user.update(user_update_params)
       @user.parse_base64(params[:user][:image])
-      render json: @user, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
