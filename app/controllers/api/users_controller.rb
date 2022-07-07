@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @user = User.find(4)
     if @user.update(user_update_params)
       if params[:user][:image]
         @user.parse_base64(params[:user][:image])
