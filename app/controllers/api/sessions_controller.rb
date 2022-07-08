@@ -3,12 +3,12 @@ class Api::SessionsController < ApplicationController
 
   def create
     # ログインIDを元にユーザーを取得
-    @current_user = User.find_by(email: session_params[:email])
+    @user = User.find_by(email: session_params[:email])
     # パスワードによる認証
     
-    if @current_user&.authenticate(session_params[:password])
+    if @user&.authenticate(session_params[:password])
       # jwtの発行
-      @jwt_token = encode(@current_user.id)
+      @jwt_token = encode(@user.id)
       # レスポンスヘッダーにトークンを設定
       response.headers['X-Authentication-Token'] = @jwt_token
       # 任意のレスポンスを返す
