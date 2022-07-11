@@ -1,5 +1,6 @@
 class Api::SkillTypesController < ApplicationController
   def show
-    @skill_types = SkillType.all
+    binding.pry
+    @skill_types = current_user.skill_types
   end
 end

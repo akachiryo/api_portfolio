@@ -1,12 +1,7 @@
 class Api::SkillsController < ApplicationController
 
-  def show
-    # @skills = current_user.skills
-    @skills = User.find(4).skills
-  end
-
   def create
-    User.find(4).skills.create!(skill_params)
+    User.current_user.skills.create!(skill_params)
     @skill_types = SkillType.all
   end
 
