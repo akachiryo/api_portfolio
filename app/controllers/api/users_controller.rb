@@ -13,9 +13,9 @@ class Api::UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_update_params)
-      if params[:user][:image]
-        @user.parse_base64(params[:user][:image])
-      end
+        if not params[:user][:image] =~ /https?/
+          @user.parse_base64(params[:user][:image])
+        end
     else
       render json: @user.errors, status: :unprocessable_entity
     end
