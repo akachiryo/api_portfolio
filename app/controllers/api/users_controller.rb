@@ -11,8 +11,7 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    # @user = current_user
-    @user = User.find(params[:id])
+    @user = current_user
     if @user.update(user_update_params)
         if not params[:user][:image] =~ /https?/
           @user.parse_base64(params[:user][:image])
