@@ -11,8 +11,8 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    # @current_user ||= Jwt::UserAuthenticator.call(request.headers)
-    @current_user = User.find(4)
+    @current_user ||= Jwt::UserAuthenticator.call(request.headers)
+    # @current_user = User.find(4)
   end
 
   private
