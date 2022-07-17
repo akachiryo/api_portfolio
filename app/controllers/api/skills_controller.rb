@@ -1,20 +1,23 @@
 class Api::SkillsController < ApplicationController
 
   def create
-    User.current_user.skills.create!(skill_params)
+    current_user.skills.create!(skill_params)
     @skill_types = SkillType.all
+    @current_user_id = current_user.id
   end
 
   def destroy
     skill = Skill.find(params[:id])
     skill.destroy!
     @skill_types = SkillType.all
+    @current_user_id = current_user.id
   end
 
   def update
     skill = Skill.find(params[:id])
     skill.update!(skill_params)
     @skill_types = SkillType.all
+    @current_user_id = current_user.id
   end
 
   private
